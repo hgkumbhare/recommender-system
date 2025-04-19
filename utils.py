@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 
-def plot_curves(training_metric_data, validation_metric_data, title, x_label, y_label):
+def plot_curves(training_metric_data, validation_metric_data, title, x_label, 
+                y_label, filename):
     
     """Plot training and validation metrics over epochs"""
     
@@ -12,4 +13,4 @@ def plot_curves(training_metric_data, validation_metric_data, title, x_label, y_
     plt.ylabel(y_label)
     plt.legend(loc='best')
     plt.grid(True)
-    plt.savefig('loss_curves.png', dpi=300)
+    plt.savefig(filename, dpi=300)

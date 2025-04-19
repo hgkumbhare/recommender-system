@@ -39,6 +39,10 @@ def prepare_for_data_loader(df, genre_cols):
     labels = df['rating'].values.astype(np.float32)
     
     # Train-test split
+    SEED = 42
+    np.random.seed(SEED)
+    torch.manual_seed(SEED)
+    
     num_samples = len(df)
     perm = np.random.permutation(num_samples)
     train_size = int(0.8 * num_samples)
