@@ -1,6 +1,5 @@
 from models.vanilla_nn import TwoLayerNet
 from trainer import Trainer
-from trainer import Trainer
 import torch
 from torch.utils.data import DataLoader, TensorDataset
 import argparse
@@ -27,9 +26,11 @@ y = torch.tensor(df[target_column].values, dtype=torch.float32)
 dataset = TensorDataset(X_sparse, y)
 loader = DataLoader(dataset, batch_size=config.train.batch_size, shuffle=True)
 
-model = TwoLayerNet(input_dim=len(sparse_columns), hidden_size=784, num_classes=1)
+if config.network.model == 'nn':
+    model = TwoLayerNet(input_dim=len(sparse_columns), hidden_size=784, num_classes=1)
+elif config.network.model == 'dcn_parallel':
+    model = TwoLayerNet(input_dim=len(sparse_columns), hidden_size=784, num_classes=1)
 
-optimizer = torch.optim.Adam(model.parameters(), lr=float(config.train.lr))
-trainer = Trainer(model, optimizer, config, loader)
+trainer = Trainer(model, config, loader, float(config.train.lr))
 
 trainer.fit()
