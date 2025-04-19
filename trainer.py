@@ -5,9 +5,9 @@ from data_utils.data_utils import set_seed
 
 
 class Trainer:
-    def __init__(self, model, optimizer, cfg, train_loader, val_loader=None):
+    def __init__(self, model, optimizer, cfg, train_loader, lr, val_loader=None):
         self.model = model.to(cfg.train.device)
-        self.optimizer = optimizer
+        self.optimizer = torch.optim.Adam(model.parameters(), lr=lr) if not optimizer else optimizer
         self.cfg = cfg
         self.train_loader = train_loader
         self.val_loader = val_loader
